@@ -20,7 +20,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from main.views import *
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register("articles", ArticlesViewSet, basename="articles")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include(router.urls)),
     path('', include('main.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
